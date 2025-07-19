@@ -35,7 +35,7 @@ function App() {
 
     useEffect(() => {
         fetchTodos();
-    }, []);
+    }, [subscribe]);
 
     const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInput(event.target.value);
