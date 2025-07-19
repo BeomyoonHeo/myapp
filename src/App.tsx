@@ -45,7 +45,7 @@ function App() {
         event.preventDefault();
 
         try {
-            const { data, error } = await supabase
+            const { data } = await supabase
                 .from('todos')
                 .insert([{ text: input }])
                 .select();
@@ -63,7 +63,7 @@ function App() {
         try {
             const targetTodo = todos.find((todo) => todo.id === id);
             if (!targetTodo) return;
-            const { data, error } = await supabase.from('todos').update({ completed: !targetTodo.completed }).eq('id', id).select();
+            await supabase.from('todos').update({ completed: !targetTodo.completed }).eq('id', id).select();
         } catch (e) {
             console.error('Error toggling todo:', e);
             return;
@@ -72,7 +72,7 @@ function App() {
 
     const deleteTodoHandler = async (id: string) => {
         try {
-            const { data, error } = await supabase.from('todos').delete().eq('id', id).select();
+            const { error } = await supabase.from('todos').delete().eq('id', id).select();
             if (error) return;
         } catch (e) {
             console.error('Error deleting todo:', e);
